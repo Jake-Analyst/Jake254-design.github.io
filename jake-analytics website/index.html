@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jake | Data Analytics Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white text-gray-800 antialiased">
+
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-16 px-4 md:px-8">
+      <!-- Brand -->
+      <h1 class="text-xl md:text-2xl font-extrabold leading-tight">
+        Jake <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">— Data Analyst</span>
+      </h1>
+
+      <!-- Hamburger button (mobile) -->
+      <button id="navbarToggle" aria-label="Toggle navigation" aria-controls="navbarMenu" aria-expanded="false"
+        class="md:hidden flex flex-col justify-between w-6 h-6">
+        <span class="block h-0.5 w-full bg-gray-800 transition-transform"></span>
+        <span class="block h-0.5 w-full bg-gray-800 transition-opacity"></span>
+        <span class="block h-0.5 w-full bg-gray-800 transition-transform"></span>
+      </button>
+
+      <!-- Menu -->
+      <nav id="navbarMenu"
+        class="hidden md:flex md:items-center md:space-x-6 absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent border-b md:border-none md:shadow-none">
+        <ul class="flex flex-col md:flex-row md:space-x-6 items-center">
+
+          <!-- Project Button -->
+          <li>
+            <a href="https://github.com/Jake-Analyst?tab=repositories"
+              class="block py-2 px-4 mt-2 md:mt-0 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 text-center md:text-left transition-all duration-300">
+              Projects
+            </a>
+          </li>
+
+          <!-- About Button -->
+          <li>
+            <a href="https://github.com/yourusername/about-repo"
+              class="block py-2 px-4 mt-2 md:mt-0 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 text-center md:text-left transition-all duration-300">
+              About
+            </a>
+          </li>
+
+          <!-- Contact Button -->
+          <li class="relative">
+            <button id="contactButton"
+              class="block py-2 px-4 mt-2 md:mt-0 bg-indigo-600 text-white font-bold rounded-lg text-center md:text-left transition-all duration-300 animate-heartbeat">
+              Contact
+            </button>
+
+            <!-- Dropdown -->
+            <div id="contactDropdown"
+              class="hidden absolute right-0 mt-2 w-48 bg-white/60 backdrop-blur-md border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+              <a href="https://wa.me/254793752735" target="_blank" rel="noopener noreferrer"
+
+                class="block px-4 py-2 hover:bg-green-100 text-gray-700"><img src="icons/whatsapp-svg.svg" class="w-5 h-5 inline-block mr-2" alt="WhatsApp icon"> WhatsApp</a>
+              <a href="tel:+254793752735" class="block px-4 py-2 hover:bg-green-100 text-gray-700"><img src="icons/phone-dial-svg.svg" class="w-5 h-5 inline-block mr-2" alt="Phone icon">Call</a>
+              <a href="https://github.com/yourusername" target="_blank  rel="noopener noreferrer
+                class="block px-4 py-2 hover:bg-green-100 text-gray-700"><img src="icons/github-svg.svg" class="w-5 h-5 inline-block mr-2" alt="Github icon" GitHub> </a>
+              <a href="https://facebook.com/yourusername" target="_blank"
+                class="block px-4 py-2 hover:bg-green-100 text-gray-700">📘 Facebook</a>
+              <a href="https://linkedin.com/in/yourusername" target="_blank"
+                class="block px-4 py-2 hover:bg-green-100 text-gray-700">💼 LinkedIn</a>
+            </div>
+          </li>
+
+          <!-- Sign Up -->
+          <li>
+            <a href="https://github.com/yourusername"
+              class="block py-2 px-4 mt-2 md:mt-0 bg-purple-600 text-white font-bold rounded-lg hover:bg-purple-700 text-center md:text-left transition-all duration-300">
+              Sign Up
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <style>
+    /* Heartbeat animation, 1s beat cycle */
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      25% {
+        transform: scale(1.1);
+      }
+      50% {
+        transform: scale(1);
+      }
+      75% {
+        transform: scale(1.05);
+      }
+    }
+
+    .animate-heartbeat {
+      animation: heartbeat 1s infinite ease-in-out;
+    }
+  </style>
+
+  <script>
+    // Mobile menu toggle
+    const navbarToggle = document.getElementById('navbarToggle');
+    const navbarMenu = document.getElementById('navbarMenu');
+    navbarToggle.addEventListener('click', () => {
+      navbarMenu.classList.toggle('hidden');
+      const spans = navbarToggle.querySelectorAll('span');
+      spans[0].classList.toggle('rotate-45', !navbarMenu.classList.contains('hidden'));
+      spans[1].classList.toggle('opacity-0', !navbarMenu.classList.contains('hidden'));
+      spans[2].classList.toggle('-rotate-45', !navbarMenu.classList.contains('hidden'));
+    });
+
+    // Contact dropdown + pulse behavior
+    const contactButton = document.getElementById('contactButton');
+    const contactDropdown = document.getElementById('contactDropdown');
+    let isOpen = false;
+
+    contactButton.addEventListener('click', () => {
+      isOpen = !isOpen;
+      contactDropdown.classList.toggle('hidden', !isOpen);
+
+      if (isOpen) {
+        contactButton.classList.remove('animate-heartbeat'); // stop pulsing when dropdown is open
+      } else {
+        contactButton.classList.add('animate-heartbeat'); // resume pulsing when closed
+      }
+    });
+
+    // Click outside to close dropdown
+    document.addEventListener('click', (e) => {
+      if (!contactButton.contains(e.target) && !contactDropdown.contains(e.target)) {
+        contactDropdown.classList.add('hidden');
+        contactButton.classList.add('animate-heartbeat');
+        isOpen = false;
+      }
+    });
+  </script>
+
+</body>
+
+
+
+   <!-- Hero Section -->
+  <div class="relative h-screen bg-[url('.images/hero-image-2.jpg')] bg-cover bg-center opacity-0 translate-y-20 transition-all duration-1000 ease-out" data-section>
+    <!-- Dark Overlay (no blur needed on overlay) -->
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+
+    <!-- Content -->
+    <section class="relative z-10 py-12 px-6 text-white">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
+        <!-- Text Content -->
+        <div class="flex-1 text-center md:text-left">
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight">
+            Transforming Data into Actionable Insights
+          </h1>
+          <p class="text-lg md:text-base mb-6 max-w-md mx-auto md:mx-0 leading-relaxed">
+            Hi, I'm Jake and I specialize in creating actionable insights through data analytics, SQL, and interactive dashboards. 
+            My portfolio demonstrates projects that drive business efficiency, uncover trends, and inform strategic decision-making.
+          </p>
+          <a href="https://1drv.ms/w/c/067d903c150ec819/IQB8Cpv5Cx6oSaG-37lZ-eQUAe124MV31XYc50HDdPlL4M4?e=2TOLpN"
+             class="inline-block bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors">
+            View My CV
+          </a>
+        </div>
+
+        <!-- Image -->
+        <div class="flex-1 flex justify-center md:justify-end">
+          <img src=".images/fixed passport image.png"
+               alt="A sample dashboard representing data insights"
+               class="w-full max-w-md aspect-square rounded-full object-cover shadow-2xl">
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="container mx-auto px-6 py-10 bg-gray-200/30 backdrop-blur-lg opacity-0 translate-y-20 transition-all duration-1000 ease-out" data-section>
+    <h2 class="text-2xl font-bold mb-6">Skills</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="p-4 bg-white/10 rounded-full border border-white/10 shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div class="font-semibold text-lg text-center text-blue-500">SQL</div>
+      </div>
+      <div class="p-4 bg-white/10 rounded-full border border-white/10 shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div class="font-semibold text-lg text-center text-purple-500">Power BI</div>
+      </div>
+      <div class="p-4 bg-white/10 rounded-full border border-white/10 shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div class="font-semibold text-lg text-center text-green-500">Statistics</div>
+      </div>
+      <div class="p-4 bg-white/10 rounded-full border border-white/10 shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div class="font-semibold text-lg text-center text-orange-500">Excel</div>
+      </div>
+      <div class="p-4 bg-white/10 rounded-full border border-white/10 shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div class="font-semibold text-lg text-center text-red-500">Data Visualization</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REDESIGNED PROJECTS SECTION -->
+  <section id="projects" class="container mx-auto px-6 py-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out" data-section>
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold mb-4 text-gray-900">Featured Projects</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Explore my data analytics projects showcasing real-world problem-solving through SQL, Excel, and Power BI</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+      
+      <!-- Project Card 1: Excel -->
+      <article class="group bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200">
+        <div class="h-2 bg-gradient-to-r from-green-400 to-emerald-500"></div>
+        
+        <!-- Project Image -->
+        <div class="relative h-48 bg-gradient-to-br from-green-50 to-emerald-50 overflow-hidden">
+          <img src="images/excel-dashboard.png" 
+               alt="Personal Finance Dashboard Preview" 
+               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <!-- Fallback if image doesn't exist -->
+          <div class="hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-green-100 to-emerald-100">
+            <svg class="w-20 h-20 text-green-600 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="p-6">
+          <!-- Icon & Tag -->
+          <div class="flex items-center justify-between mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+              📊 Excel
+            </span>
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-green-600 transition-colors">
+            Personal Finance Dashboard
+          </h3>
+
+          <!-- Description -->
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Comprehensive data cleaning, duplicate removal, and interactive dashboard creation using pivot tables and charts to support financial decision-making.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col gap-3">
+            <a href="#project-excel" 
+               class="inline-flex items-center justify-center px-5 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg smooth-scroll">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+              View Project
+            </a>
+            <a href="https://github.com/Jake-Analyst/Personal-Finance-Dashboard-Excel-/discussions/new?category=general" 
+               target="_blank"
+               class="inline-flex items-center justify-center px-5 py-3 bg-white border-2 border-green-600 text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-all duration-300">
+              💬 Leave a Review
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project Card 2: SQL -->
+      <article class="group bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200">
+        <div class="h-2 bg-gradient-to-r from-blue-400 to-indigo-500"></div>
+        
+        <!-- Project Image -->
+        <div class="relative h-48 bg-gradient-to-br from-blue-50 to-indigo-50 overflow-hidden">
+          <img src="images/sql-dashboard.png" 
+               alt="HR Analytics SQL Project Preview" 
+               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <!-- Fallback if image doesn't exist -->
+          <div class="hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-blue-100 to-indigo-100">
+            <svg class="w-20 h-20 text-blue-600 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="p-6">
+          <!-- Icon & Tag -->
+          <div class="flex items-center justify-between mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
+              🗄️ SQL
+            </span>
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+            </svg>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+            HR Analytics SQL Project
+          </h3>
+
+          <!-- Description -->
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Advanced SQL queries, complex joins, and data aggregations to extract meaningful insights from HR datasets and support workforce analytics.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col gap-3">
+            <a href="#project-sql" 
+               class="inline-flex items-center justify-center px-5 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg smooth-scroll">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+              View Project
+            </a>
+            <a href="https://github.com/Jake-Analyst/HR-Analytics-SQL-Project/discussions/new?category=general" 
+               target="_blank"
+               class="inline-flex items-center justify-center px-5 py-3 bg-white border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300">
+              💬 Leave a Review
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project Card 3: HR Employee Attrition -->
+      <article class="group bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200">
+        <div class="h-2 bg-gradient-to-r from-orange-400 to-red-500"></div>
+        
+        <!-- Project Image -->
+        <div class="relative h-48 bg-gradient-to-br from-orange-50 to-red-50 overflow-hidden">
+          <img src="images/hr-attrition-dashboard.png" 
+               alt="HR Employee Attrition Dashboard Preview" 
+               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <!-- Fallback if image doesn't exist -->
+          <div class="hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-orange-100 to-red-100">
+            <svg class="w-20 h-20 text-orange-600 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="p-6">
+          <!-- Icon & Tag -->
+          <div class="flex items-center justify-between mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-700">
+              👥 HR Analytics
+            </span>
+            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+            HR Employee Attrition Analysis
+          </h3>
+
+          <!-- Description -->
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Predictive analysis and visualization dashboard identifying key factors driving employee turnover and retention patterns across departments.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col gap-3">
+            <a href="#project-attrition" 
+               class="inline-flex items-center justify-center px-5 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-all duration-300 shadow-md hover:shadow-lg smooth-scroll">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+              View Project
+            </a>
+            <a href="https://github.com/Jake-Analyst/HR-Employee-Attrition/discussions/new?category=general" 
+               target="_blank"
+               class="inline-flex items-center justify-center px-5 py-3 bg-white border-2 border-orange-600 text-orange-600 font-semibold rounded-lg hover:bg-orange-50 transition-all duration-300">
+              💬 Leave a Review
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project Card 4: Power BI -->
+      <article class="group bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200">
+        <div class="h-2 bg-gradient-to-r from-purple-400 to-pink-500"></div>
+        
+        <!-- Project Image -->
+        <div class="relative h-48 bg-gradient-to-br from-purple-50 to-pink-50 overflow-hidden">
+          <img src="images/powerbi-dashboard.png" 
+               alt="Sales Performance Dashboard Preview" 
+               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <!-- Fallback if image doesn't exist -->
+          <div class="hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-purple-100 to-pink-100">
+            <svg class="w-20 h-20 text-purple-600 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="p-6">
+          <!-- Icon & Tag -->
+          <div class="flex items-center justify-between mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700">
+              📈 Power BI
+            </span>
+            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors">
+            Sales Performance Dashboard
+          </h3>
+
+          <!-- Description -->
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            End-to-end ETL pipeline, KPI monitoring, and interactive drill-down visualizations to track sales metrics and business performance.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col gap-3">
+            <a href="#project-powerbi" 
+               class="inline-flex items-center justify-center px-5 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all duration-300 shadow-md hover:shadow-lg smooth-scroll">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+              View Project
+            </a>
+            <a href="https://github.com/Jake-Analyst/Sales-Performance-Dashboard-/discussions/new?category=general" 
+               target="_blank"
+               class="inline-flex items-center justify-center px-5 py-3 bg-white border-2 border-purple-600 text-purple-600 font-semibold rounded-lg hover:bg-purple-50 transition-all duration-300">
+              💬 Leave a Review
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- DETAILED PROJECT SHOWCASES -->
+  
+  <!-- Excel Project Showcase -->
+  <section id="project-excel" class="bg-gradient-to-br from-green-50 to-emerald-50 py-20 opacity-0 translate-y-20 transition-all duration-1000 ease-out" data-section>
+    <div class="container mx-auto px-6">
+      <!-- Back to Projects -->
+      <a href="#projects" class="inline-flex items-center text-green-600 hover:text-green-700 font-semibold mb-8 smooth-scroll">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Projects
+      </a>
+
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-8 text-white">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-white/20 p-3 rounded-xl">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold">Personal Finance Dashboard</h2>
+              <p class="text-green-100 mt-1">Excel Data Analytics Project</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Excel</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Data Cleaning</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Pivot Tables</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Dashboards</span>
+          </div>
+        </div>
+
+        <!-- Project Preview -->
+        <div class="p-8 bg-gray-50">
+          <h3 class="text-2xl font-bold mb-4 text-gray-900">Project Preview</h3>
+          <div class="relative aspect-video bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl overflow-hidden shadow-lg">
+            <img src=".images/MPESA STATEMENT DASHBOARD.png" 
+                 alt="Personal Finance Dashboard Preview" 
+                 class="w-full h-full object-cover cursor-zoom-in"
+                 onclick="openImage(this.src)"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <!-- Fallback if image doesn't exist -->
+            <div class="hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-green-100 to-emerald-100">
+              <div class="text-center">
+                <svg class="w-24 h-24 mx-auto text-green-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <p class="text-gray-600 font-medium">Add your project image to: images/excel-dashboard.png</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- README Section -->
+        <div class="p-8">
+          <h3 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Project Overview
+          </h3>
+          
+          <div class="prose prose-lg max-w-none">
+            <h4 class="text-xl font-semibold text-gray-900 mb-3">About This Project</h4>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              This comprehensive Personal Finance Dashboard was built using Microsoft Excel to help individuals track, analyze, and optimize their financial health. The project demonstrates advanced Excel skills including data cleaning, transformation, and visualization.
+            </p>
+
+            <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Key Features</h4>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Automated data cleaning processes to handle missing values and duplicates</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Dynamic pivot tables for income and expense analysis</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Interactive charts and graphs for trend visualization</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Budget tracking with variance analysis</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Category-wise spending breakdown with visual indicators</span>
+              </li>
+            </ul>
+
+            <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Technologies Used</h4>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium">Microsoft Excel</span>
+              <span class="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium">Pivot Tables</span>
+              <span class="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium">Data Validation</span>
+              <span class="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium">Conditional Formatting</span>
+            </div>
+
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a href="https://github.com/Jake-Analyst/Personal-Finance-Dashboard-Excel-" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View on GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-PROFILE" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                View on LinkedIn
+              </a>
+              <a href="https://www.linkedin.com/in/jacob-muuo-b48738388/?originalSubdomain=ke" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-white border-2 border-green-600 text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-all duration-300">
+                💬 Leave Feedback
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SQL Project Showcase -->
+  <section id="project-sql" class="bg-gradient-to-br from-blue-50 to-indigo-50 py-20 opacity-0 translate-y-20 transition-all duration-1000 ease-out" data-section>
+    <div class="container mx-auto px-6">
+      <!-- Back to Projects -->
+      <a href="#projects" class="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold mb-8 smooth-scroll">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Projects
+      </a>
+
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-8 text-white">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-white/20 p-3 rounded-xl">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold">HR Analytics SQL Project</h2>
+              <p class="text-blue-100 mt-1">Advanced Database Analysis</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">SQL</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Data Analysis</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Complex Joins</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Aggregations</span>
+          </div>
+        </div>
+
+        <!-- Project Preview -->
+        <div class="p-8 bg-gray-50">
+          <h3 class="text-2xl font-bold mb-4 text-gray-900">Project Preview</h3>
+          <div class="relative aspect-video bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl overflow-hidden shadow-lg">
+            <img src=".images/SQL_tables.png" 
+                 alt="HR Analytics SQL Project Preview" 
+                 class="w-full h-full object-cover"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <!-- Fallback if image doesn't exist -->
+            <div class="hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-blue-100 to-indigo-100">
+              <div class="text-center">
+                <svg class="w-24 h-24 mx-auto text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <p class="text-gray-600 font-medium">Add your project image to: images/sql-dashboard.png</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- README Section -->
+        <div class="p-8">
+          <h3 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Project Overview
+          </h3>
+          
+          <div class="prose prose-lg max-w-none">
+            <h4 class="text-xl font-semibold text-gray-900 mb-3">About This Project</h4>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              This HR Analytics project leverages advanced SQL techniques to extract meaningful insights from employee databases. The analysis covers workforce demographics, performance metrics, retention patterns, and departmental analytics to support strategic HR decisions.
+            </p>
+
+            <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Key Features</h4>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Complex JOIN operations across multiple HR tables</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Advanced aggregation functions for statistical analysis</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Window functions for ranking and comparative analysis</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Subqueries and CTEs for complex data extraction</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Optimized queries for performance on large datasets</span>
+              </li>
+            </ul>
+
+            <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Technologies Used</h4>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-medium">SQL</span>
+              <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-medium">PostgreSQL</span>
+              <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-medium">Data Modeling</span>
+              <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-medium">Query Optimization</span>
+            </div>
+
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a href="https://github.com/Jake-Analyst/HR-Analytics-SQL-Project" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View on GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-PROFILE" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                View on LinkedIn
+              </a>
+              <a href="https://www.linkedin.com/in/jacob-muuo-b48738388/?originalSubdomain=ke" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-white border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300">
+                💬 Leave Feedback
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HR Employee Attrition Project Showcase -->
+  <section id="project-attrition" class="bg-gradient-to-br from-orange-50 to-red-50 py-20 opacity-0 translate-y-20 transition-all duration-1000 ease-out" data-section>
+    <div class="container mx-auto px-6">
+      <!-- Back to Projects -->
+      <a href="#projects" class="inline-flex items-center text-orange-600 hover:text-orange-700 font-semibold mb-8 smooth-scroll">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Projects
+      </a>
+
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-orange-500 to-red-600 p-8 text-white">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-white/20 p-3 rounded-xl">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold">HR Employee Attrition Analysis</h2>
+              <p class="text-orange-100 mt-1">Workforce Retention & Predictive Analytics</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Excel/Power BI</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Predictive Analysis</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Data Visualization</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">HR Analytics</span>
+          </div>
+        </div>
+
+        <!-- Project Preview -->
+        <div class="p-8 bg-gray-50">
+          <h3 class="text-2xl font-bold mb-4 text-gray-900">Project Preview</h3>
+          <div class="relative aspect-video bg-gradient-to-br from-orange-100 to-red-100 rounded-2xl overflow-hidden shadow-lg">
+            <img src=".images/HR-Attrition.png" 
+                 alt="HR Employee Attrition Dashboard Preview" 
+                 class="w-full h-full object-cover cursor-zoom-in"
+                  onclick="openImage(this.src)">
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <!-- Fallback if image doesn't exist -->
+            <div class="hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-orange-100 to-red-100">
+              <div class="text-center">
+                <svg class="w-24 h-24 mx-auto text-orange-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <p class="text-gray-600 font-medium">Add your project image to: images/HR-Attrition.png</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- README Section -->
+        <div class="p-8">
+          <h3 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Project Overview
+          </h3>
+          
+          <div class="prose prose-lg max-w-none">
+            <h4 class="text-xl font-semibold text-gray-900 mb-3">About This Project</h4>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              This HR Employee Attrition project analyzes workforce data to identify patterns and factors contributing to employee turnover. Using advanced analytics and visualization techniques, the project provides actionable insights to help organizations improve retention strategies and reduce attrition costs.
+            </p>
+
+            <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Key Features</h4>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-orange-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Comprehensive analysis of attrition rates across departments, age groups, and tenure</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-orange-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Identification of key attrition drivers including salary, work-life balance, and job satisfaction</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-orange-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Interactive dashboards showing turnover trends and risk indicators</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-orange-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Predictive modeling to identify employees at high risk of leaving</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-orange-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Actionable recommendations for retention improvement strategies</span>
+              </li>
+            </ul>
+
+            <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Technologies Used</h4>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-4 py-2 bg-orange-100 text-orange-700 rounded-lg font-medium">Excel/Power BI</span>
+              <span class="px-4 py-2 bg-orange-100 text-orange-700 rounded-lg font-medium">Statistical Analysis</span>
+              <span class="px-4 py-2 bg-orange-100 text-orange-700 rounded-lg font-medium">Data Visualization</span>
+              <span class="px-4 py-2 bg-orange-100 text-orange-700 rounded-lg font-medium">Predictive Analytics</span>
+            </div>
+
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a href="https://github.com/Jake-Analyst/HR-Employee-Attrition" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View on GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-PROFILE" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                View on LinkedIn
+              </a>
+              <a href="https://www.linkedin.com/in/jacob-muuo-b48738388/?originalSubdomain=ke" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-white border-2 border-orange-600 text-orange-600 font-semibold rounded-lg hover:bg-orange-50 transition-all duration-300">
+                💬 Leave Feedback
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Power BI Project Showcase -->
+  <section id="project-powerbi" class="bg-gradient-to-br from-purple-50 to-pink-50 py-20 opacity-0 translate-y-20 transition-all duration-1000 ease-out" data-section>
+    <div class="container mx-auto px-6">
+      <!-- Back to Projects -->
+      <a href="#projects" class="inline-flex items-center text-purple-600 hover:text-purple-700 font-semibold mb-8 smooth-scroll">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Projects
+      </a>
+
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-8 text-white">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-white/20 p-3 rounded-xl">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold">Sales Performance Dashboard</h2>
+              <p class="text-purple-100 mt-1">Power BI Business Intelligence</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Power BI</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">ETL</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">DAX</span>
+            <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Data Modeling</span>
+          </div>
+        </div>
+
+        <!-- Project Preview -->
+        <div class="p-8 bg-gray-50">
+          <h3 class="text-2xl font-bold mb-4 text-gray-900">Project Preview</h3>
+          <div class="relative aspect-video bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl overflow-hidden shadow-lg">
+            <img src=".images/Sales-Dashboard.png" 
+                 alt="Sales Performance Dashboard Preview" 
+                 class="w-full h-full object-cover"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <!-- Fallback if image doesn't exist -->
+            <div class="hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-purple-100 to-pink-100">
+              <div class="text-center">
+                <svg class="w-24 h-24 mx-auto text-purple-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <p class="text-gray-600 font-medium">Add your project image to: images/powerbi-dashboard.png</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- README Section -->
+        <div class="p-8">
+          <h3 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Project Overview
+          </h3>
+          
+          <div class="prose prose-lg max-w-none">
+            <h4 class="text-xl font-semibold text-gray-900 mb-3">About This Project</h4>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              This comprehensive Sales Performance Dashboard was built using Microsoft Power BI to provide real-time insights into sales operations. The dashboard enables stakeholders to track KPIs, identify trends, and make data-driven decisions to optimize sales performance.
+            </p>
+
+            <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Key Features</h4>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>End-to-end ETL pipeline from multiple data sources</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Interactive visualizations with drill-through capabilities</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Advanced DAX calculations for business metrics</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Real-time KPI monitoring and alerts</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Regional and product-level performance breakdowns</span>
+              </li>
+            </ul>
+
+            <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Technologies Used</h4>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg font-medium">Power BI</span>
+              <span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg font-medium">DAX</span>
+              <span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg font-medium">Power Query</span>
+              <span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg font-medium">Data Modeling</span>
+            </div>
+
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a href="https://github.com/Jake-Analyst/Sales-Performance-Dashboard-" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View on GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-PROFILE" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                View on LinkedIn
+              </a>
+              <a href="https://www.linkedin.com/in/jacob-muuo-b48738388/?originalSubdomain=ke" 
+                 target="_blank"
+                 class="inline-flex items-center px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 font-semibold rounded-lg hover:bg-purple-50 transition-all duration-300">
+                💬 Leave Feedback
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Smooth scroll for internal links
+      document.querySelectorAll('a.smooth-scroll').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Intersection observer for fade-in animations
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("opacity-100", "translate-y-0");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll("[data-section]").forEach(section => {
+        observer.observe(section);
+      });
+    });
+  </script>
+
+  <!-- Testimonials Section -->
+<section id="testimonials" class="container mx-auto px-6 py-16 bg-white/5 backdrop-blur-lg border-t border-white/10 opacity-0 translate-y-20 transition-all duration-1000 ease-out" data-section>
+  <h2 class="text-3xl font-bold mb-10 text-center text-gray-900">What People Say 💬</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Testimonial 1 -->
+    <div class="p-6 rounded-2xl bg-white/70 border border-gray-300 shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <p class="text-gray-800 italic mb-4">"Jake delivered an amazing dashboard that revealed insights we didn't even know we had. Truly a professional analyst!"</p>
+      <div class="font-semibold text-gray-900">— Brian M., Project Manager</div>
+    </div>
+
+    <!-- Testimonial 2 -->
+    <div class="p-6 rounded-2xl bg-white/70 border border-gray-300 shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <p class="text-gray-800 italic mb-4">"His SQL and visualization skills made our reporting seamless. Highly recommend working with Jake."</p>
+      <div class="font-semibold text-gray-900">— Sarah K., Data Lead</div>
+    </div>
+
+    <!-- Testimonial 3 -->
+    <div class="p-6 rounded-2xl bg-white/70 border border-gray-300 shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <p class="text-gray-800 italic mb-4">"Jake turned our raw data into clean, actionable visuals. Fast, reliable, and skilled."</p>
+      <div class="font-semibold text-gray-900">— David O., Business Analyst</div>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- Contact -->
+  <footer id="contact" class="container mx-auto px-6 py-12 opacity-0 translate-y-20 transition-all duration-1000 ease-out" data-section>
+  <div class="p-8 rounded-2xl bg-gradient-to-r from-white/10 to-white/20 border border-white/20 backdrop-blur-md shadow-xl">
+    <h3 class="text-2xl font-bold text-gray-900">Let's build something useful 📈</h3>
+    <p class="text-gray-700 mt-2">Available for freelance & collaborations. I respond fast.</p>
+
+    <!-- Social Links -->
+    <div class="mt-4 flex flex-wrap items-center gap-4 text-gray-800">
+      <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener noreferrer" class="p-3 rounded-lg bg-white/40 hover:bg-white/60">LinkedIn</a>
+      <a href="https://github.com/Jake-Analyst" target="_blank" rel="noopener noreferrer" class="p-3 rounded-lg bg-white/40 hover:bg-white/60">GitHub</a>
+      <a href="/cdn-cgi/l/email-protection#d2b8bfa7a7bde5ebebe292b5bfb3bbbefcb1bdbf" class="p-3 rounded-lg bg-white/40 hover:bg-white/60">Email</a>
+      <a href="tel:+254793752735" class="p-3 rounded-lg bg-white/40 hover:bg-white/60">Phone</a>
+      <a href="https://wa.me/254793752735" target="_blank" rel="noopener noreferrer" class="p-3 rounded-lg bg-white/40 hover:bg-white/60">WhatsApp</a>
+    </div>
+
+    <!-- Contact Form -->
+    <form
+  action="https://formspree.io/f/mwprgdrp"
+  method="POST"
+  class="mt-6 grid gap-3 max-w-md text-gray-900"
+>
+  <input
+    class="bg-white/70 border border-gray-400 rounded-md p-3 placeholder-gray-600"
+    type="text"
+    name="name"
+    placeholder="Your name"
+    required
+  />
+  <input
+    class="bg-white/70 border border-gray-400 rounded-md p-3 placeholder-gray-600"
+    type="email"
+    name="email"
+    placeholder="Your email"
+    required
+  />
+  <textarea
+    class="bg-white/70 border border-gray-400 rounded-md p-3 placeholder-gray-600"
+    name="message"
+    rows="4"
+    placeholder="Message"
+    required
+  ></textarea>
+
+  <button
+    type="submit"
+    class="py-3 rounded-md font-semibold bg-gradient-to-r from-cyan-400 to-purple-500 text-black hover:scale-105 transition-transform duration-300"
+  >
+    Send message
+  </button>
+</form>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      alert("✅ Message sent successfully!");
+      form.reset();
+    } else {
+      alert("❌ Message failed to send. Check your Formspree setup.");
+    }
+  });
+</script>
+
+
+    <div class="mt-6 text-sm text-gray-800">© 2025 Jake — Data Analytics Portfolio</div>
+  </div>
+
+  <!-- EmailJS Script (Optional: remove if using only Formspree) -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+   
+  </script>
+</footer>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+
+        try {
+          const response = await fetch('http://localhost:3000/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+          const result = await response.json();
+          alert(result.message || 'Something went wrong');
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Failed to send message');
+        }
+      });
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("opacity-100", "translate-y-0");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
